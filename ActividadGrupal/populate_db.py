@@ -2,7 +2,7 @@ import os
 import django
 
 # Configurar el entorno de Django
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tu_proyecto.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ActividadGrupal.settings')
 django.setup()
 
 from scrum.models import Epica, Tarea, Sprint
@@ -20,7 +20,7 @@ def populate():
         'esfuerzo_estimado_total': 40,
         'fecha_inicio': '2024-01-01',
         'fecha_fin': '2024-01-31',
-        'progreso': 60,
+        'progreso': 0.2,
         'responsable_id': 1 
     },
     {
@@ -31,7 +31,7 @@ def populate():
         'esfuerzo_estimado_total': 30,
         'fecha_inicio': '2024-02-01',
         'fecha_fin': '2024-02-15',
-        'progreso': 0,
+        'progreso': 0.1,
         'responsable_id': 2 
     },
     ]
@@ -95,9 +95,18 @@ def populate():
    # ] EJEMPLO!
     
     for epica_datos in epicas:
-        epica = Epica(**epica_datos)
-        epica.save()
-        print(f'(Epica) {epica.nombre}: {epica.descripcion}. AGREGADO')
+        epica = Epica.objects.create(
+            nombre=epica_datos['nombre'],
+            descripcion=epica_datos['descripcion'],
+            criterios_aceptacion=epica_datos['criterios_aceptacion'],
+            estado=epica_datos['estado'],
+            esfuerzo_estimado_total=epica_datos['esfuerzo_estimado_total'],
+            fecha_inicio=epica_datos['fecha_inicio'],
+            fecha_fin=epica_datos['fecha_fin'],
+            progreso=epica_datos['progreso'],
+            responsable_id=epica_datos['responsable_id']
+        )
+    print(f'(Epica) {epica.nombre}: {epica.descripcion}. AGREGADO')
 
     for tarea_datos in tareas:
         tarea = Tarea(**tarea_datos)
