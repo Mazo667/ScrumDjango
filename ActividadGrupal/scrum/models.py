@@ -15,10 +15,12 @@ class Sprint(models.Model):
         User,
         null=True,
         on_delete=models.SET_NULL,
+        related_name='sprint_como_scrum_master'
     )
     equipo_de_desarrollo = models.ManyToManyField(
         User,
-        blank=True
+        blank=True,
+        related_name='sprint_como_desarrollador'
     )
     backlog_sprint = models.ManyToManyField(
         'Tarea',
@@ -34,34 +36,28 @@ class Sprint(models.Model):
                 check=Q(fecha_fin__gte=models.F('fecha_inicio')),
                 name='fecha_fin_posterior'
             ),
-            models.CheckConstraint(
-                check=Q(velocidad__gte=0),
-                name='velocidad_no_negativa'
-            ),
         ]
     
     def __str__(self):
         return f"Sprint: {self.nombre} - Velocidad: {self.velocidad} - Fecha Inicio: {self.fecha_inicio} - Fecha Fin: {self.fecha_fin}"
-    
-class Epica(models.Model):
-    ESTADOS = [
+
+ESTADOS = [
         ('POR_HACER', 'Por Hacer'),
         ('EN_PROGRESO', 'En Progreso'),
         ('COMPLETADA', 'Completada'),
     ]
 
+class Epica(models.Model):
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField()
     criterios_aceptacion = models.TextField()
-    estado = models.CharField(max_length=20, choices=ESTADOS,default='POR_HACER')
+    estado = models.CharField(max_length=20, choices=ESTADOS, default='POR_HACER')
     responsable = models.ForeignKey(
         User,
-    )
-    tareas_asociadas = models.ManyToManyField(
-        'Tarea',
         on_delete=models.SET_NULL,
-        null=True
+        null=True 
     )
+    tareas_asociadas = models.ManyToManyField('Tarea', blank=True)
     esfuerzo_estimado_total = models.IntegerField()
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
@@ -75,7 +71,7 @@ class Epica(models.Model):
     class Meta:
         constraints = [
             models.CheckConstraint(
-                check=Q(esfuerzo_estimado__gte=0),
+                check=Q(esfuerzo_estimado_total__gte=0),
                 name='esfuerzo_total_no_negativo'
             ),
             models.CheckConstraint(
@@ -93,11 +89,6 @@ class Epica(models.Model):
         ]
 
 class Tarea(models.Model):
-    ESTADOS = [
-        ('POR_HACER', 'Por Hacer'),
-        ('EN_PROGRESO', 'En Progreso'),
-        ('COMPLETADA', 'Completada'),
-    ]
     PRIORIDADES = [
         ('BAJA', 'Baja'),
         ('MEDIA', 'Media'),
@@ -113,19 +104,27 @@ class Tarea(models.Model):
         blank=True,
         null=True
     )
-    prioridad = models.CharField()
+    prioridad = models.CharField(
+        max_length=10,
+        choices=PRIORIDADES,
+        default='BAJA' 
+    )
     estado = models.CharField(
+        max_length=20,
         choices=ESTADOS,
         default='POR_HACER'
     )
-    esfuerzo_estimado = models.IntegerChoices()
+    esfuerzo_estimado = models.IntegerField(
+        null=True,
+        blank=True  
+    )
     responsable = models.ForeignKey(
         User,
         null=True,
         on_delete=models.SET_NULL
     )
     sprint_asignado = models.ForeignKey(
-        Sprint,
+        'Sprint',
         null=True,
         blank=True,
         on_delete=models.SET_NULL
@@ -133,6 +132,7 @@ class Tarea(models.Model):
     fecha_de_creacion = models.DateTimeField(auto_now=True)
     fecha_de_actualizacion = models.DateTimeField(auto_now_add=True)
     dependencias = models.ManyToManyField(
+        'self',
         symmetrical=False,
         blank=True
     )
@@ -143,9 +143,8 @@ class Tarea(models.Model):
 
     class Meta:
         constraints = [
-            models.CheckConstraint(check=Q(prioridad__gte=0), name='prioridad_no_negativa'),
-            models.CheckConstraint(check=Q(esfuerzo_estimado__gte=0), name='esfuerzo_estimado_no_negativo'),
             models.CheckConstraint(check=Q(estado__in=[estado[0] for estado in ESTADOS]), name='estado_valido_tarea'),
+            models.CheckConstraint(check=Q(esfuerzo_estimado__gte=0), name='esfuerzo_estimado_no_negativo'),
         ]
 
     def __str__(self):
