@@ -24,7 +24,8 @@ class Sprint(models.Model):
     )
     backlog_sprint = models.ManyToManyField(
         'Tarea',
-        blank=True
+        blank=True,
+        related_name='sprint_backlog'
     )
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now_add=True)
@@ -78,8 +79,7 @@ class Epica(models.Model):
                 check=Q(progreso__gte=0) & Q(progreso__lte=1),
                 name='progreso_valido'
             ),
-            models.CheckConstraint(
-                check=Q(estado__in=[estado[0] for estado in ESTADOS]),
+            models.CheckConstraint(check=Q(estado='POR_HACER') | Q(estado='EN_PROGRESO') | Q(estado='COMPLETADA'),
                 name='estado_valido_epica'
             ),
             models.CheckConstraint(
@@ -143,7 +143,8 @@ class Tarea(models.Model):
 
     class Meta:
         constraints = [
-            models.CheckConstraint(check=Q(estado__in=[estado[0] for estado in ESTADOS]), name='estado_valido_tarea'),
+            models.CheckConstraint(check=Q(estado='POR_HACER') | Q(estado='EN_PROGRESO') | Q(estado='COMPLETADA'), name='estado_valido_tarea'),
+            models.CheckConstraint(check=Q(prioridad='BAJA') | Q(prioridad='MEDIA') | Q(prioridad='ALTA'), name='prioridad_valido_tarea'),
             models.CheckConstraint(check=Q(esfuerzo_estimado__gte=0), name='esfuerzo_estimado_no_negativo'),
         ]
 
