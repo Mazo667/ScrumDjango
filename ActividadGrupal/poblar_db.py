@@ -47,8 +47,6 @@ def populate():
         'fecha_inicio':'2024-01-01',
         'fecha_fin':'2024-01-15',
         'velocidad':'20',
-        'fecha_creacion':'2023-12-15', 
-        'fecha_actualizacion':'2023-12-15', 
         'scrum_master_id':'1' 
     },
     {
@@ -58,8 +56,6 @@ def populate():
          'fecha_inicio':'2024-02-01',
          'fecha_fin':'2024-02-15',
          'velocidad':'25', 
-         'fecha_creacion':'2024-01-15', 
-         'fecha_actualizacion':'2024-01-15', 
          'scrum_master_id':'2' 
     },
     ]
@@ -73,8 +69,6 @@ def populate():
         'prioridad': 'ALTA',
         'estado': 'EN_PROGRESO',
         'esfuerzo_estimado': 10,
-        'fecha_de_creacion': '2024-01-01',
-        'fecha_de_actualizacion': '',
         'bloqueadores': '',
         'responsable_id': 1, 
         'sprint_asignado_id': 1 
@@ -87,13 +81,13 @@ def populate():
         'prioridad': 'ALTA',
         'estado': 'POR_HACER',
         'esfuerzo_estimado': 8,
-        'fecha_de_creacion': '',
-        'fecha_de_actualizacion': '',
         'bloqueadores': '',
         'responsable_id': 2, 
         'sprint_asignado_id': 1
     },
     ]
+
+    usuarios = User.objects.exclude(is_superuser=True)
 
    # autores = [
    #     {'nombre': 'Gabriel García Márquez', 'fecha_nacimiento': '1927-03-06'},
@@ -114,7 +108,7 @@ def populate():
             progreso=epica_datos['progreso'],
             responsable_id=epica_datos['responsable_id']
         )
-    print(f'(Epica) {epica.nombre}: {epica.descripcion} AGREGADO')
+        print(f'(Epica) {epica.nombre}: {epica.descripcion} AGREGADO')
 
     for sprint_datos in sprints:
         sprint = Sprint.objects.create(
@@ -124,11 +118,12 @@ def populate():
             fecha_inicio=sprint_datos['fecha_inicio'],
             fecha_fin=sprint_datos['fecha_fin'],
             velocidad=sprint_datos['velocidad'],
-            fecha_creacion=sprint_datos['fecha_creacion'],
-            fecha_actualizacion=sprint_datos['fecha_actualizacion'],
             scrum_master_id=sprint_datos['scrum_master_id']
         )
         print(f'(Sprint) {sprint.nombre}: {sprint.objetivo} AGREGADO')
+         #Agrego el equipo de desarrollo
+        for usuario in usuarios:
+            sprint.equipo_de_desarrollo.add(usuario)
 
     for tarea_datos in tareas:
         tarea = Tarea.objects.create(
@@ -139,16 +134,15 @@ def populate():
             prioridad=tarea_datos['prioridad'],
             estado=tarea_datos['estado'],
             esfuerzo_estimado=tarea_datos['esfuerzo_estimado'],
-            fecha_de_creacion=tarea_datos['fecha_de_creacion'],
-            fecha_de_actualizacion=tarea_datos['fecha_de_actualizacion'],
             bloqueadores=tarea_datos['bloqueadores'],
             responsable_id=tarea_datos['responsable_id'],
             sprint_asignado_id=tarea_datos['sprint_asignado_id']
         )
+        print(f'(Tarea) {tarea.titulo}: {tarea.descripcion} AGREGADO')
         #Agrego las tareas al sprint backlog
         sprint.backlog_sprint.add(tarea)
-        
-    print(f'(Tarea) {tarea.titulo}: {tarea.descripcion} AGREGADO')
+        #Agrego las tareas a las epicas
+        epica.tareas_asociadas.add(tarea)
 
     
 
