@@ -5,8 +5,9 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ActividadGrupal.settings')
 django.setup()
 
-from scrum.models import Epica, Tarea, Sprint
-from django.contrib.auth.models import User
+from django.core.management.base import BaseCommand #Comandos de django para usarlo como el shell
+from scrum.models import Epica, Tarea, Sprint #Los modelos del scrum
+from django.contrib.auth.models import User 
 
 
 def populate():
@@ -144,6 +145,9 @@ def populate():
             responsable_id=tarea_datos['responsable_id'],
             sprint_asignado_id=tarea_datos['sprint_asignado_id']
         )
+        #Agrego las tareas al sprint backlog
+        sprint.backlog_sprint.add(tarea)
+        
     print(f'(Tarea) {tarea.titulo}: {tarea.descripcion} AGREGADO')
 
     
