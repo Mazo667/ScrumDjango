@@ -23,7 +23,7 @@ def populate():
         'fecha_inicio': '2024-01-01',
         'fecha_fin': '2024-01-31',
         'progreso': 0.2,
-        'responsable_id': 1 
+        'responsable_id': 2 
     },
     {
         'id': 2,
@@ -52,20 +52,20 @@ def populate():
     {
         'id': 2,
         'nombre':'Sprint 2 - Mejoras de Rendimiento',
-         'objetivo':'Optimizar el rendimiento del sistema basado en los resultados obtenidos del Sprint anterior.',
-         'fecha_inicio':'2024-02-01',
-         'fecha_fin':'2024-02-15',
-         'velocidad':'25', 
-         'scrum_master_id':'2' 
+        'objetivo':'Optimizar el rendimiento del sistema basado en los resultados obtenidos del Sprint anterior.',
+        'fecha_inicio':'2024-02-01',
+        'fecha_fin':'2024-02-15',
+        'velocidad':'25', 
+        'scrum_master_id':'2' 
     },
     {
         'id': 3,
         'nombre':'Sprint 3 - Pulir detalles',
-         'objetivo':'Pulir detalles de la aplicacion web antes de la entrega.',
-         'fecha_inicio':'2024-03-01',
-         'fecha_fin':'2024-03-15',
-         'velocidad':'22', 
-         'scrum_master_id':'2' 
+        'objetivo':'Pulir detalles de la aplicacion web antes de la entrega.',
+        'fecha_inicio':'2024-03-01',
+        'fecha_fin':'2024-03-15',
+        'velocidad':'22', 
+        'scrum_master_id':'2' 
     },
     ]
 
@@ -179,6 +179,21 @@ def populate():
     for tarea in tareas_objetos:
         sprint1.backlog_sprint.add(tarea)
         print(f'Tarea {tarea.titulo} agregada al Sprint {sprint1.nombre}')
+
+    #Agrego las tareas asociadas a las epicas
+    epica1 = Epica.objects.get(id=1)
+    tareas_objetos = Tarea.objects.all()[:10]
+    for tarea in tareas_objetos:
+        epica1.tareas_asociadas.add(tarea)
+        print(f'Tarea {tarea.titulo} asociada al Epica {epica1.nombre}')
+
+    epica2 = Epica.objects.get(id=2)
+    tareas_objetos = Tarea.objects.all()[10:20]
+    for tarea in tareas_objetos:
+        epica2.tareas_asociadas.add(tarea)
+        print(f'Tarea {tarea.titulo} asociada al Epica {epica2.nombre}')
+
+    ### FALTARIA AGREGAR LA TERCERA EPICA
 
 if __name__ == '__main__':
     populate()

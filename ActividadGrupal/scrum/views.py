@@ -9,18 +9,28 @@ def obtener_epicas(request):
     return JsonResponse(epicas_list,safe=False)
 
 def obtener_epica_especifica(request,epica_id):
-    epica = get_object_or_404(Epica,id=epica_id)
+    tarea = get_object_or_404(Epica,id=epica_id)
+    tareas_asociadas= list(tarea.tareas_asociadas.all().values())
+    dependencias = list(tarea.dependencias.all().values())
     epica_dic = {
-        'id':epica.id,
-        'nombre':epica.nombre,
-        'descripcion':epica.descripcion,
-        'criterios_aceptacion':epica.criterios_aceptacion,
-        'estado':epica.estado,
-        'esfuerzo_estimado_total':epica.esfuerzo_estimado_total,
-        'fecha_inicio':epica.fecha_inicio,
-        'fecha_fin':epica.fecha_fin,
-        'progreso':epica.progreso,
-        'responsable_id':epica.responsable.id
+        'id':tarea.id,
+        'nombre':tarea.nombre,
+        'descripcion':tarea.descripcion,
+        'criterios_aceptacion':tarea.criterios_aceptacion,
+        'estado':tarea.estado,
+        'responsable': {
+            'id':tarea.responsable.id,
+            'nombre':tarea.responsable.first_name,
+            'apellido':tarea.responsable.last_name,
+            'email':tarea.responsable.email,
+            'usuario':tarea.responsable.username
+        },
+        'tareas_asociadas':tareas_asociadas,
+        'esfuerzo_estimado_total':tarea.esfuerzo_estimado_total,
+        'fecha_inicio':tarea.fecha_inicio,
+        'fecha_fin':tarea.fecha_fin,
+        'progreso':tarea.progreso,
+        'dependencias': dependencias
     }
     return JsonResponse(epica_dic,safe=False)
 
@@ -74,7 +84,7 @@ def obtener_tareas(request):
 def obtener_tarea_especifica(request,tarea_id):
     tarea = get_object_or_404(Tarea,id=tarea_id)
     sprint = tarea.sprint_asignado
-    dependencias = tarea.dependencias.all().values()
+    dependencias = list(tarea.dependencias.all().values())
     tarea_dic = {
         'titulo':tarea.titulo,
         'descripcion':tarea.descripcion,
@@ -82,7 +92,13 @@ def obtener_tarea_especifica(request,tarea_id):
         'prioridad':tarea.prioridad,
         'estado':tarea.estado,
         'esfuerzo_estimado':tarea.esfuerzo_estimado,
-        'responsable':tarea.responsable.get_full_name(),
+        'responsable': {
+            'id':tarea.responsable.id,
+            'nombre':tarea.responsable.first_name,
+            'apellido':tarea.responsable.last_name,
+            'email':tarea.responsable.email,
+            'usuario':tarea.responsable.username
+        },
         'sprint_asignado': { 
             'id':sprint.id,
             'nombre':sprint.nombre,
@@ -94,7 +110,7 @@ def obtener_tarea_especifica(request,tarea_id):
               },
         'fecha_de_creacion':tarea.fecha_de_creacion,
         'fecha_de_actualizacion':tarea.fecha_de_actualizacion,
-        'dependencias': list(dependencias),
+        'dependencias': dependencias,
         'bloqueadores':tarea.bloqueadores
     }
     return JsonResponse(tarea_dic)
