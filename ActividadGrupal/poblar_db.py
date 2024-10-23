@@ -70,7 +70,7 @@ def populate():
     ]
 
     tareas = [
-            {
+    {
         'id': 1,
         'titulo': 'Implementar Registro de Usuario',
         'descripcion': 'Desarrollar la funcionalidad que permite a los nuevos usuarios registrarse en la aplicación.',
@@ -78,7 +78,7 @@ def populate():
         'prioridad': 'ALTA',
         'estado': 'EN_PROGRESO',
         'esfuerzo_estimado': 10,
-        'bloqueadores': '',
+        'bloqueadores': 'Falta definir cual servicio de envío de correos electrónicos se usara.',
         'responsable_id': 2, 
         'sprint_asignado_id': 1 
     },
@@ -96,16 +96,101 @@ def populate():
     },
     {
         'id': 3,
-        'titulo': 'Implementar Olvide mi contreña',
-        'descripcion': 'Desarrollar la funcionalidad que permite a los usuarios restablecer su contraseña.',
-        'criterios_aceptacion': 'Los usuarios deben poder restablecer su contraseña mediante su email.',
-        'prioridad': 'MEDIA',
+        'titulo': 'Desarrollar Formulario de Adopción',
+        'descripcion': 'Crear un formulario para que los usuarios puedan solicitar la adopción de un animal.',
+        'criterios_aceptacion': 'El formulario debe ser validado y enviar una notificación al administrador.',
+        'prioridad': 'ALTA',
         'estado': 'POR_HACER',
-        'esfuerzo_estimado': 7,
+        'esfuerzo_estimado': 9,
         'bloqueadores': '',
-        'responsable_id': 2, 
+        'responsable_id': 3,
         'sprint_asignado_id': 1
     },
+    {
+        'id': 4,
+        'titulo': 'Implementar Gestión de Voluntarios',
+        'descripcion': 'Desarrollar una sección para que los usuarios se registren como voluntarios.',
+        'criterios_aceptacion': 'Los voluntarios deben poder completar un formulario y recibir confirmación.',
+        'prioridad': 'ALTA',
+        'estado': 'POR_HACER',
+        'esfuerzo_estimado': 10,
+        'bloqueadores': '',
+        'responsable_id': 4,
+        'sprint_asignado_id': 1
+    },
+    {
+        'id': 5,
+        'titulo': 'Crear Apartado de Novedades',
+        'descripcion': 'Desarrollar una sección donde se muestren las novedades sobre adopciones y eventos.',
+        'criterios_aceptacion': 'Las novedades deben poder ser publicadas y vistas por los usuarios.',
+        'prioridad': 'ALTA',
+        'estado': 'POR_HACER',
+        'esfuerzo_estimado': 8,
+        'bloqueadores': '',
+        'responsable_id': 5,
+        'sprint_asignado_id': 1 
+    },
+    {
+        'id': 6,
+        'titulo': 'Desarrollar Funcionalidad de Seguimiento',
+        'descripcion': 'Implementar un sistema para que los administradores puedan hacer seguimiento a los adoptantes.',
+        'criterios_aceptacion': 'Se debe poder registrar el estado de adopción y notas.',
+        'prioridad': 'ALTA',
+        'estado': 'POR_HACER',
+        'esfuerzo_estimado': 10,
+        'bloqueadores': '',
+        'responsable_id': 6,
+        'sprint_asignado_id': 1 
+    },
+    {
+        'id': 7,
+        'titulo': 'Integrar Sistema de Notificaciones',
+        'descripcion': 'Crear un sistema de notificaciones para informar a los usuarios sobre novedades y seguimientos.',
+        'criterios_aceptacion': 'Los usuarios deben recibir notificaciones en su perfil.',
+        'prioridad': 'ALTA',
+        'estado': 'POR_HACER',
+        'esfuerzo_estimado': 10,
+        'bloqueadores': '',
+        'responsable_id': 7,
+        'sprint_asignado_id': 1
+    },
+    {
+        'id': 8,
+        'titulo': 'Implementar Reporte de Adopciones',
+        'descripcion': 'Desarrollar un sistema para generar reportes de adopciones realizadas.',
+        'criterios_aceptacion': 'Los administradores deben poder ver reportes detallados.',
+        'prioridad': 'ALTA',
+        'estado': 'POR_HACER',
+        'esfuerzo_estimado': 6,
+        'bloqueadores': '',
+        'responsable_id': 8,
+        'sprint_asignado_id': 1
+    },
+    {
+        'id': 9,
+        'titulo': 'Crear Página de FAQ',
+        'descripcion': 'Desarrollar una sección de preguntas frecuentes para ayudar a los usuarios.',
+        'criterios_aceptacion': 'Las preguntas deben ser fácilmente accesibles y navegables.',
+        'prioridad': 'ALTA',
+        'estado': 'POR_HACER',
+        'esfuerzo_estimado': 5,
+        'bloqueadores': '',
+        'responsable_id': 9,
+        'sprint_asignado_id': 1
+    },
+    {
+        'id': 10,
+        'titulo': 'Realizar Pruebas de Usabilidad',
+        'descripcion': 'Ejecutar pruebas de usabilidad para asegurar que la aplicación es intuitiva para los usuarios.',
+        'criterios_aceptacion': 'Se deben recopilar y analizar los comentarios de los usuarios.',
+        'prioridad': 'ALTA',
+        'estado': 'POR_HACER',
+        'esfuerzo_estimado': 5,
+        'bloqueadores': 'El uso de dispositivos moviles todavia no esta implementado el media query',
+        'responsable_id': 10,
+        'sprint_asignado_id': 1
+    },
+     
     ]
 
     usuarios = User.objects.exclude(is_superuser=True) #Todos los usuarios excepto el admin
