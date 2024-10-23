@@ -64,7 +64,7 @@ class Epica(models.Model):
     fecha_fin = models.DateField()
     progreso = models.FloatField()
     dependencias = models.ManyToManyField(
-        'self',
+        'self', #Se refiere al mismo modelo
         symmetrical=False,
         blank=True
     )
@@ -106,48 +106,48 @@ class Tarea(models.Model):
     )
     prioridad = models.CharField(
         max_length=10,
-        choices=PRIORIDADES,
+        choices=PRIORIDADES, #Son las opciones, en este caso la tupla PRIORIDADES
         default='BAJA' 
     )
     estado = models.CharField(
         max_length=20,
         choices=ESTADOS,
-        default='POR_HACER'
+        default='POR_HACER' #Por defecto es POR_HACER
     )
     esfuerzo_estimado = models.IntegerField(
         null=True,
         blank=True  
     )
-    responsable = models.ForeignKey(
+    responsable = models.ForeignKey( #Clave foranea
         User,
         null=True,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL #Al eliminar el usuario se establece la relacion a NULL
     )
-    sprint_asignado = models.ForeignKey(
+    sprint_asignado = models.ForeignKey( #Clave foranea
         'Sprint',
         null=True,
         blank=True,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL #Al eliminar un Sprint, se establece la relación a NULL
     )
     fecha_de_creacion = models.DateTimeField(auto_now=True)
     fecha_de_actualizacion = models.DateTimeField(auto_now_add=True)
-    dependencias = models.ManyToManyField(
+    dependencias = models.ManyToManyField(  #Relacion de muchos a muchos
         'self',
-        symmetrical=False,
-        blank=True
+        symmetrical=False,  #La relación no es simétrica; permite dependencias unidireccionales
+        blank=True #Puede estar en blanco
     )
     bloqueadores = models.TextField(
-        null=True,
-        blank=True,
+        null=True,  #Puedo ser nulo
+        blank=True, #Puede estar en blanco
     )
 
-    class Meta:
-        constraints = [
+    class Meta:   #Metadato, es decir informacion de los datos o en este caso el modelo
+        constraints = [ #Condicionales o reglas que se aplican a los campos de la base de datos para garantizar la integridad de los datos
             models.CheckConstraint(check=Q(estado='POR_HACER') | Q(estado='EN_PROGRESO') | Q(estado='COMPLETADA'), name='estado_valido_tarea'),
             models.CheckConstraint(check=Q(prioridad='BAJA') | Q(prioridad='MEDIA') | Q(prioridad='ALTA'), name='prioridad_valido_tarea'),
             models.CheckConstraint(check=Q(esfuerzo_estimado__gte=0), name='esfuerzo_estimado_no_negativo'),
         ]
 
-    def __str__(self):
+    def __str__(self):  #Funcion para darle formato cada vez que hagamos un print()
         return f"Tarea: {self.estado} - Prioridad: {self.prioridad} - Esfuerzo: {self.esfuerzo_estimado} - Responsable: {self.responsable}"
     

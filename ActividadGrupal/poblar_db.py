@@ -7,7 +7,7 @@ django.setup()
 
 from django.core.management.base import BaseCommand #Comandos de django para usarlo como el shell
 from scrum.models import Epica, Tarea, Sprint #Los modelos del scrum
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User #Modelo del usuario
 
 
 def populate():
@@ -47,7 +47,7 @@ def populate():
         'fecha_inicio':'2024-01-01',
         'fecha_fin':'2024-01-15',
         'velocidad':'20',
-        'scrum_master_id':'1' 
+        'scrum_master_id':'2' 
     },
     {
         'id': 2,
@@ -56,6 +56,15 @@ def populate():
          'fecha_inicio':'2024-02-01',
          'fecha_fin':'2024-02-15',
          'velocidad':'25', 
+         'scrum_master_id':'2' 
+    },
+    {
+        'id': 3,
+        'nombre':'Sprint 3 - Pulir detalles',
+         'objetivo':'Pulir detalles de la aplicacion web antes de la entrega.',
+         'fecha_inicio':'2024-03-01',
+         'fecha_fin':'2024-03-15',
+         'velocidad':'22', 
          'scrum_master_id':'2' 
     },
     ]
@@ -85,9 +94,21 @@ def populate():
         'responsable_id': 2, 
         'sprint_asignado_id': 1
     },
+    {
+        'id': 3,
+        'titulo': 'Implementar Olvide mi contreña',
+        'descripcion': 'Desarrollar la funcionalidad que permite a los usuarios restablecer su contraseña.',
+        'criterios_aceptacion': 'Los usuarios deben poder restablecer su contraseña mediante su email.',
+        'prioridad': 'MEDIA',
+        'estado': 'POR_HACER',
+        'esfuerzo_estimado': 7,
+        'bloqueadores': '',
+        'responsable_id': 2, 
+        'sprint_asignado_id': 1
+    },
     ]
 
-    usuarios = User.objects.exclude(is_superuser=True)
+    usuarios = User.objects.exclude(is_superuser=True) #Todos los usuarios excepto el admin
 
    # autores = [
    #     {'nombre': 'Gabriel García Márquez', 'fecha_nacimiento': '1927-03-06'},
@@ -95,7 +116,7 @@ def populate():
    #     # Agrega más autores según sea necesario
    # ] EJEMPLO!
     
-    for epica_datos in epicas:
+    for epica_datos in epicas: #Foreach por cada epica
         epica = Epica.objects.create(
             id=epica_datos['id'],
             nombre=epica_datos['nombre'],
@@ -110,7 +131,7 @@ def populate():
         )
         print(f'(Epica) {epica.nombre}: {epica.descripcion} AGREGADO')
 
-    for sprint_datos in sprints:
+    for sprint_datos in sprints: #Foreach por cada sprint
         sprint = Sprint.objects.create(
             id=sprint_datos['id'],
             nombre=sprint_datos['nombre'],
@@ -125,7 +146,7 @@ def populate():
         for usuario in usuarios:
             sprint.equipo_de_desarrollo.add(usuario)
 
-    for tarea_datos in tareas:
+    for tarea_datos in tareas: #Foreach por cada tarea
         tarea = Tarea.objects.create(
             id=tarea_datos['id'],
             titulo=tarea_datos['titulo'],
