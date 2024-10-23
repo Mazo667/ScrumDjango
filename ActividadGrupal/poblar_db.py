@@ -79,7 +79,7 @@ def populate():
         'estado': 'EN_PROGRESO',
         'esfuerzo_estimado': 10,
         'bloqueadores': '',
-        'responsable_id': 1, 
+        'responsable_id': 2, 
         'sprint_asignado_id': 1 
     },
     {
