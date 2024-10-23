@@ -22,7 +22,7 @@ def populate():
         'esfuerzo_estimado_total': 40,
         'fecha_inicio': '2024-01-01',
         'fecha_fin': '2024-01-31',
-        'progreso': 0.2,
+        'progreso': 0.0,
         'responsable_id': 2 
     },
     {
@@ -34,7 +34,19 @@ def populate():
         'esfuerzo_estimado_total': 30,
         'fecha_inicio': '2024-02-01',
         'fecha_fin': '2024-02-15',
-        'progreso': 0.1,
+        'progreso': 0.0,
+        'responsable_id': 2 
+    },
+    {
+        'id': 3,
+        'nombre': 'Que la aplicacion web se pueda mostrar en cualquier dispositivo',
+        'descripcion': 'Implementar funcionalidad en multiples dispositivos como PC de escritorios, Notebooks, Tablets y SmartPhones, para que puedan acceder a la aplicacion web.',
+        'criterios_aceptacion': 'En SmartPhones deben mostrar menos animales para adoptar en la pantalla que en una PC de Escritorio.',
+        'estado': 'POR_HACER',
+        'esfuerzo_estimado_total': 30,
+        'fecha_inicio': '2024-03-01',
+        'fecha_fin': '2024-03-15',
+        'progreso': 0.0,
         'responsable_id': 2 
     },
     ]
@@ -47,7 +59,7 @@ def populate():
         'fecha_inicio':'2024-01-01',
         'fecha_fin':'2024-01-15',
         'velocidad':'20',
-        'scrum_master_id':'2' 
+        'scrum_master_id':'3' 
     },
     {
         'id': 2,
@@ -56,7 +68,7 @@ def populate():
         'fecha_inicio':'2024-02-01',
         'fecha_fin':'2024-02-15',
         'velocidad':'25', 
-        'scrum_master_id':'2' 
+        'scrum_master_id':'3' 
     },
     {
         'id': 3,
@@ -65,7 +77,7 @@ def populate():
         'fecha_inicio':'2024-03-01',
         'fecha_fin':'2024-03-15',
         'velocidad':'22', 
-        'scrum_master_id':'2' 
+        'scrum_master_id':'3' 
     },
     ]
 
@@ -190,6 +202,246 @@ def populate():
         'responsable_id': 10,
         'sprint_asignado_id': 1
     },
+    {
+        "id": 11,
+        "titulo": "Optimizar Consultas SQL Lentas",
+        "descripcion": "Identificar las consultas SQL más lentas del sistema y optimizarlas para mejorar el rendimiento general.",
+        "criterios_aceptacion": "Las consultas optimizadas deben ejecutarse en menos de 1 segundo.",
+        "prioridad": "ALTA",
+        "estado": "POR_HACER",
+        "esfuerzo_estimado": 8,
+        "bloqueadores": "",
+        "responsable_id": 3,
+        "sprint_asignado_id": 2
+    },
+    {
+        "id": 12,
+        "titulo": "Implementar Mecanismo de Cacheo",
+        "descripcion": "Desarrollar un sistema de cacheo para reducir el número de consultas a la base de datos en las páginas más visitadas.",
+        "criterios_aceptacion": "Las páginas principales deben cargarse con tiempos de respuesta menores a 500 ms utilizando el sistema de cacheo.",
+        "prioridad": "ALTA",
+        "estado": "POR_HACER",
+        "esfuerzo_estimado": 5,
+        "bloqueadores": "Esperando aprobación para la selección de la herramienta de cacheo.",
+        "responsable_id": 4,
+        "sprint_asignado_id": 2
+    },
+    {
+        "id": 13,
+        "titulo": "Reducir Consumo de Memoria",
+        "descripcion": "Revisar y optimizar el uso de memoria en las operaciones más intensivas del sistema para reducir el consumo general.",
+        "criterios_aceptacion": "El consumo de memoria debe reducirse al menos en un 20% en las operaciones críticas.",
+        "prioridad": "MEDIA",
+        "estado": "EN_PROGRESO",
+        "esfuerzo_estimado": 10,
+        "bloqueadores": "",
+        "responsable_id": 5,
+        "sprint_asignado_id": 2
+    },
+    {
+        "id": 14,
+        "titulo": "Optimizar Carga de Imágenes en la Web",
+        "descripcion": "Implementar técnicas de lazy loading y compresión de imágenes para mejorar el tiempo de carga de las páginas que contienen multimedia.",
+        "criterios_aceptacion": "Las imágenes deben cargarse de manera más rápida y las páginas deben mostrar mejoras en los tiempos de carga.",
+        "prioridad": "MEDIA",
+        "estado": "POR_HACER",
+        "esfuerzo_estimado": 4,
+        "bloqueadores": "Esperando aprobación de las herramientas de compresión.",
+        "responsable_id": 2,
+        "sprint_asignado_id": 2
+    },
+    {
+        "id": 15,
+        "titulo": "Optimizar Archivos Estáticos (CSS/JS)",
+        "descripcion": "Minificar y combinar archivos CSS y JS para reducir el tiempo de carga y mejorar el rendimiento.",
+        "criterios_aceptacion": "Los archivos estáticos deben reducir su tamaño en un 30% y mejorar los tiempos de carga de la página principal.",
+        "prioridad": "ALTA",
+        "estado": "POR_HACER",
+        "esfuerzo_estimado": 3,
+        "bloqueadores": "",
+        "responsable_id": 1,
+        "sprint_asignado_id": 2
+    },
+    {
+        "id": 16,
+        "titulo": "Configurar Herramientas de Monitoreo",
+        "descripcion": "Implementar una herramienta de monitoreo en tiempo real para evaluar continuamente el rendimiento del sistema.",
+        "criterios_aceptacion": "La herramienta de monitoreo debe estar configurada y mostrar informes sobre el uso de recursos del sistema en tiempo real.",
+        "prioridad": "ALTA",
+        "estado": "EN_PROGRESO",
+        "esfuerzo_estimado": 7,
+        "bloqueadores": "Dependiente de la elección de la herramienta de monitoreo.",
+        "responsable_id": 4,
+        "sprint_asignado_id": 2
+    },
+    {
+        "id": 17,
+        "titulo": "Activar Compresión Gzip para Archivos Estáticos",
+        "descripcion": "Configurar el servidor para utilizar compresión Gzip y reducir el tamaño de los archivos enviados al cliente.",
+        "criterios_aceptacion": "Los archivos estáticos deben ser comprimidos y las transferencias deben ser más rápidas.",
+        "prioridad": "MEDIA",
+        "estado": "POR_HACER",
+        "esfuerzo_estimado": 3,
+        "bloqueadores": "",
+        "responsable_id": 3,
+        "sprint_asignado_id": 2
+    },
+    {
+        "id": 18,
+        "titulo": "Optimizar Llamadas a la API Externa",
+        "descripcion": "Implementar técnicas de paginación y reducción de datos en las llamadas a la API externa para mejorar el tiempo de respuesta.",
+        "criterios_aceptacion": "Las llamadas a la API deben tener un tiempo de respuesta inferior a 500 ms.",
+        "prioridad": "MEDIA",
+        "estado": "POR_HACER",
+        "esfuerzo_estimado": 5,
+        "bloqueadores": "Esperando validación de las opciones de la API.",
+        "responsable_id": 2,
+        "sprint_asignado_id": 2
+    },
+    {
+        "id": 19,
+        "titulo": "Mejorar la Escalabilidad Horizontal del Sistema",
+        "descripcion": "Configurar el sistema para que pueda manejar una mayor cantidad de tráfico mediante la adición de nodos y la distribución de la carga.",
+        "criterios_aceptacion": "El sistema debe poder escalar automáticamente en función de la carga de trabajo y soportar el doble de tráfico actual.",
+        "prioridad": "ALTA",
+        "estado": "EN_PROGRESO",
+        "esfuerzo_estimado": 10,
+        "bloqueadores": "Dependiente de la configuración del balanceador de carga.",
+        "responsable_id": 5,
+        "sprint_asignado_id": 2
+    },
+    {
+        "id": 20,
+        "titulo": "Indexar Columnas Críticas en la Base de Datos",
+        "descripcion": "Identificar columnas frecuentemente consultadas en la base de datos y crear índices para mejorar el rendimiento de las consultas.",
+        "criterios_aceptacion": "Las consultas a la base de datos deben mejorar su tiempo de respuesta al menos en un 30%.",
+        "prioridad": "ALTA",
+        "estado": "POR_HACER",
+        "esfuerzo_estimado": 6,
+        "bloqueadores": "",
+        "responsable_id": 4,
+        "sprint_asignado_id": 2
+    },
+    {
+        'id': 21,
+        'titulo': 'Revisar diseño de la interfaz',
+        'descripcion': 'Realizar una revisión final del diseño de la interfaz de usuario para asegurar que cumpla con los estándares.',
+        'criterios_aceptacion': 'El diseño debe ser aprobado por el equipo de UI/UX.',
+        'prioridad': 'ALTA',
+        'estado': 'EN_PROGRESO',
+        'esfuerzo_estimado': 5,
+        'bloqueadores': '',
+        'responsable_id': 2,
+        'sprint_asignado_id': 3
+    },
+    {
+        'id': 22,
+        'titulo': 'Optimizar carga de imágenes',
+        'descripcion': 'Reducir el tamaño de las imágenes para mejorar el tiempo de carga de la aplicación.',
+        'criterios_aceptacion': 'Las imágenes deben cargarse en menos de 2 segundos.',
+        'prioridad': "ALTA",
+        'estado': "POR_HACER",
+        'esfuerzo_estimado': 4,
+        'bloqueadores': '',
+        'responsable_id': 3,
+        'sprint_asignado_id': 3
+    },
+    {
+        'id': 23,
+        'titulo': 'Corregir errores en el formulario de registro',
+        'descripcion': 'Resolver los errores reportados en el formulario de registro.',
+        'criterios_aceptacion': 'Todos los errores deben estar corregidos y documentados.',
+        'prioridad': 'ALTA',
+        'estado': "POR_HACER",
+        'esfuerzo_estimado': 6,
+        'bloqueadores': '',
+        'responsable_id': 4,
+        'sprint_asignado_id': 3
+    },
+    {
+        'id': 24,
+        'titulo': 'Actualizar documentación del proyecto',
+        'descripcion': "Asegurarse de que toda la documentación del proyecto esté actualizada y sea accesible.",
+        'criterios_aceptacion': "La documentación debe estar revisada y aprobada por el equipo.",
+        'prioridad': "MEDIA",
+        "estado": "POR_HACER",
+        "esfuerzo_estimado": 3,
+        "bloqueadores": "",
+        "responsable_id": 5,
+        "sprint_asignado_id": 3
+    },
+    {
+       "id": 25,
+       "titulo": "Implementar pruebas automatizadas",
+       "descripcion": "Desarrollar pruebas automatizadas para las funcionalidades críticas.",
+       "criterios_aceptacion": "Todas las pruebas deben pasar sin errores.",
+       "prioridad": "ALTA",
+       "estado": "POR_HACER",
+       "esfuerzo_estimado": 7,
+       "bloqueadores": "",
+       "responsable_id": 6,
+       "sprint_asignado_id": 3
+   },
+   {
+       "id": 26,
+       "titulo": "Realizar pruebas de usabilidad",
+       "descripcion": "Ejecutar pruebas con usuarios para evaluar la usabilidad de la aplicación.",
+       "criterios_aceptacion": "Los resultados deben ser documentados y presentados al equipo.",
+       "prioridad": "MEDIA",
+       "estado": "POR_HACER",
+       "esfuerzo_estimado": 5,
+       "bloqueadores": "",
+       "responsable_id": 7,
+       "sprint_asignado_id": 3
+   },
+   {
+       "id": 27,
+       "titulo": "Mejorar la velocidad de carga del sitio",
+       "descripcion": "Optimizar el rendimiento del sitio web para mejorar los tiempos de carga.",
+       "criterios_aceptacion": "'La velocidad de carga debe ser menor a 3 segundos en condiciones normales.",
+       "prioridad": "ALTA",
+       "estado" : "EN_PROGRESO",
+       "esfuerzo_estimado" : 8,
+       "bloqueadores" : "Necesita revisión del código existente.",
+       "responsable_id" : 8,
+       "sprint_asignado_id" : 3
+   },
+   {
+      "id": 28,
+      "titulo": "Revisar compatibilidad en navegadores",
+      "descripcion": "Asegurarse de que la aplicación funcione correctamente en los principales navegadores.",
+      "criterios_aceptacion": "La aplicación debe pasar pruebas en Chrome, Firefox y Safari.",
+      "prioridad": "MEDIA",
+      "estado": "POR_HACER",
+      "esfuerzo_estimado": 4,
+      "bloqueadores": "",
+      "responsable_id": 9,
+      "sprint_asignado_id": 3
+   },
+   {
+      "id": 29,
+      "titulo": "Implementar feedback del cliente",
+      "descripcion": "Incorporar los comentarios recibidos del cliente sobre la última demo.",
+      "criterios_aceptacion": "Los cambios deben ser revisados y aprobados por el cliente.",
+      "prioridad": "ALTA",
+      "estado": "POR_HACER",
+      "esfuerzo_estimado": 6,
+      "bloqueadores": "",
+      "responsable_id": 10,
+      "sprint_asignado_id": 3
+   },
+   {
+      "id": 30,
+      "titulo": "Preparar presentación para la entrega",
+      "descripcion": "Crear una presentación que resuma las funcionalidades desarrolladas y los próximos pasos.",
+      "criterios_aceptacion": "La presentación debe ser clara y estar lista antes de la reunión con el cliente.",
+      "prioridad": "ALTA",
+      "estado": "POR_HACER",
+      "esfuerzo_estimado": 5,
+      "bloqueadores": "",
+      "responsable_id": 11,
+      "sprint_asignado_id": 3
+   }
      
     ]
 
@@ -229,7 +481,8 @@ def populate():
         print(f'(Sprint) {sprint.nombre}: {sprint.objetivo} AGREGADO')
          #Agrego el equipo de desarrollo
         for usuario in usuarios:
-            sprint.equipo_de_desarrollo.add(usuario)
+            if usuario.id != 3:  #Excepto al scrum master o usuario con id 3
+                sprint.equipo_de_desarrollo.add(usuario)
 
     for tarea_datos in tareas: #Foreach por cada tarea
         tarea = Tarea.objects.create(
@@ -248,22 +501,22 @@ def populate():
     
     #Obtengo los sprints para agregar las tareas manualmente
     sprint1 = Sprint.objects.get(id=1)
-    tareas_objetos = Tarea.objects.all().filter(sprint_asignado=1)
+    tareas_objetos = Tarea.objects.filter(sprint_asignado=1)
     for tarea in tareas_objetos:
         sprint1.backlog_sprint.add(tarea)
         print(f'Tarea {tarea.titulo} agregada al Sprint {sprint1.nombre}')
 
     sprint2 = Sprint.objects.get(id=2)
-    tareas_objetos = Tarea.objects.all().filter(sprint_asignado=2)
+    tareas_objetos = Tarea.objects.filter(sprint_asignado=2)
     for tarea in tareas_objetos:
-        sprint1.backlog_sprint.add(tarea)
-        print(f'Tarea {tarea.titulo} agregada al Sprint {sprint1.nombre}')
+        sprint2.backlog_sprint.add(tarea)
+        print(f'Tarea {tarea.titulo} agregada al Sprint {sprint2.nombre}')
 
     sprint3 = Sprint.objects.get(id=3)
-    tareas_objetos = Tarea.objects.all().filter(sprint_asignado=3)
+    tareas_objetos = Tarea.objects.filter(sprint_asignado=3)
     for tarea in tareas_objetos:
-        sprint1.backlog_sprint.add(tarea)
-        print(f'Tarea {tarea.titulo} agregada al Sprint {sprint1.nombre}')
+        sprint3.backlog_sprint.add(tarea)
+        print(f'Tarea {tarea.titulo} agregada al Sprint {sprint3.nombre}')
 
     #Agrego las tareas asociadas a las epicas
     epica1 = Epica.objects.get(id=1)
@@ -278,7 +531,11 @@ def populate():
         epica2.tareas_asociadas.add(tarea)
         print(f'Tarea {tarea.titulo} asociada al Epica {epica2.nombre}')
 
-    ### FALTARIA AGREGAR LA TERCERA EPICA
+    epica3 = Epica.objects.get(id=2)
+    tareas_objetos = Tarea.objects.all()[20:30]
+    for tarea in tareas_objetos:
+        epica3.tareas_asociadas.add(tarea)
+        print(f'Tarea {tarea.titulo} asociada al Epica {epica3.nombre}')
 
 if __name__ == '__main__':
     populate()
