@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from .models import Epica, Sprint, Tarea, User
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
+from datetime import datetime
 
 def obtener_epicas(request):
     epicas = Epica.objects.all().values()
@@ -114,3 +115,20 @@ def obtener_tarea_especifica(request,tarea_id):
         'bloqueadores':tarea.bloqueadores
     }
     return JsonResponse(tarea_dic)
+
+
+def obtener_tareas_por_fecha(request, fecha):
+    try:
+        # Convertir la fecha desde el formato dd-mm-yyyy a un objeto datetime
+        fecha_obj = datetime.strptime(fecha, '%d-%m-%Y')
+
+        # Filtrar tareas por fecha de creación
+        tareas = Tarea.objects.filter(fecha_de_creacion__date=fecha_obj)
+
+        # Convertir las tareas a una lista de diccionarios
+        tareas_list = list(tareas.values())
+        
+        return JsonResponse(tareas_list, safe=False)
+
+    except ValueError:
+        return JsonResponse({'error': 'Fecha no válida.'}, status=400)  # Manejo de errores si la conversión falla

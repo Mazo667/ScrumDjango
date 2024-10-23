@@ -6,9 +6,9 @@ urlpatterns = [
    path('epicas/<int:epica_id>/',views.obtener_epica_especifica,name='epica_especifica'),
    path('tareas/',views.obtener_tareas,name='tareas_lista'),
    path('tareas/<int:tarea_id>/',views.obtener_tarea_especifica,name='tarea_especifica'),
+   path('tareas/<str:fecha>/', views.obtener_tareas_por_fecha, name='tareas_por_fecha'),
    path('sprints/', views.obtener_sprints, name='sprints_lista'),
    path('sprints/<int:sprint_id>/',views.obtener_sprint_especifico,name='sprint_especifico'),
    path('sprints/<int:sprint_id>/desarroladores/',views.obtener_equipo_de_desarrollo,name='desarrolladores_sprint'),
-   path('sprints/<int:sprint_id>/backlog/',views.obtener_sprint_backlog,name='sprint_backlog')
-
+   path('sprints/<int:sprint_id>/backlog/',views.obtener_sprint_backlog,name='sprint_backlog'),
 ]
