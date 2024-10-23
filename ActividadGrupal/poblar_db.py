@@ -160,12 +160,25 @@ def populate():
             sprint_asignado_id=tarea_datos['sprint_asignado_id']
         )
         print(f'(Tarea) {tarea.titulo}: {tarea.descripcion} AGREGADO')
-        #Agrego las tareas al sprint backlog
-        sprint.backlog_sprint.add(tarea)
-        #Agrego las tareas a las epicas
-        epica.tareas_asociadas.add(tarea)
-
     
+    #Obtengo los sprints para agregar las tareas manualmente
+    sprint1 = Sprint.objects.get(id=1)
+    tareas_objetos = Tarea.objects.all().filter(sprint_asignado=1)
+    for tarea in tareas_objetos:
+        sprint1.backlog_sprint.add(tarea)
+        print(f'Tarea {tarea.titulo} agregada al Sprint {sprint1.nombre}')
+
+    sprint2 = Sprint.objects.get(id=2)
+    tareas_objetos = Tarea.objects.all().filter(sprint_asignado=2)
+    for tarea in tareas_objetos:
+        sprint1.backlog_sprint.add(tarea)
+        print(f'Tarea {tarea.titulo} agregada al Sprint {sprint1.nombre}')
+
+    sprint3 = Sprint.objects.get(id=3)
+    tareas_objetos = Tarea.objects.all().filter(sprint_asignado=3)
+    for tarea in tareas_objetos:
+        sprint1.backlog_sprint.add(tarea)
+        print(f'Tarea {tarea.titulo} agregada al Sprint {sprint1.nombre}')
 
 if __name__ == '__main__':
     populate()
