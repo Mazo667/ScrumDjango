@@ -8,6 +8,13 @@ utilizando las herramientas que prefieran, y proponer una mejora en los modelos.
 Finalmente, deberán realizar consultas utilizando las relaciones y agregaciones vistas en
 clase para demostrar el funcionamiento de los modelos.
 
+## Integrantes
+   - Emilia Alvarez
+   - Marcela Delgado
+   - Maximiliano Fava
+   - Jessica Loureiro
+   - Camila Simon
+
 ## Instalación
 
 1. Clona el repositorio:
@@ -38,7 +45,7 @@ clase para demostrar el funcionamiento de los modelos.
     python manage.py runserver
     ```
 
-### URL DEFINIDOS
+## URL Definidos
 
 ### Ejemplo de Uso
 
