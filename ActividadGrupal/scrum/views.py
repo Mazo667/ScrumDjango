@@ -131,4 +131,13 @@ def obtener_tareas_por_fecha(request, fecha):
         return JsonResponse(tareas_list, safe=False)
 
     except ValueError:
-        return JsonResponse({'error': 'Fecha no válida.'}, status=400)  # Manejo de errores si la conversión falla
+        return JsonResponse({'error': 'Fecha no valida.'}, status=400)  # Manejo de errores si la conversión falla
+    
+def obtener_taraes_por_estado(request,estado):
+    try:
+        tareas = Tarea.objects.filter(estado=estado)
+        tareas_list = list(tareas.values())
+        return JsonResponse(tareas_list, safe=False)
+        
+    except ValueError:
+        return JsonResponse({'error': 'Estado invalido.'}, status=400) 

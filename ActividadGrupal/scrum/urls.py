@@ -7,6 +7,7 @@ urlpatterns = [
    path('tareas/',views.obtener_tareas,name='tareas_lista'),
    path('tareas/<int:tarea_id>/',views.obtener_tarea_especifica,name='tarea_especifica'),
    path('tareas/<str:fecha>/', views.obtener_tareas_por_fecha, name='tareas_por_fecha'),
+   path('tareas/estado/<str:estado>/',views.obtener_taraes_por_estado,name='tareas_por_estado'),
    path('sprints/', views.obtener_sprints, name='sprints_lista'),
    path('sprints/<int:sprint_id>/',views.obtener_sprint_especifico,name='sprint_especifico'),
    path('sprints/<int:sprint_id>/desarroladores/',views.obtener_equipo_de_desarrollo,name='desarrolladores_sprint'),
