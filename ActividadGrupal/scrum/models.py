@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 
 class Sprint(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100,
+                              verbose_name="Nombre del Sprint", help_text="Nombre descriptivo del Sprint") #Mejoras para mejor legibilidad en el apartado admin.
     objetivo = models.TextField(
         blank=True,
         null=True
@@ -49,7 +50,8 @@ ESTADOS = [
     ]
 
 class Epica(models.Model):
-    nombre = models.CharField(max_length=200)
+    nombre = models.CharField(max_length=200,
+                              verbose_name="Nombre de la Epica", help_text="Nombre descriptivo de la Epica.") #Mejoras para mejor legibilidad en el apartado admin.
     descripcion = models.TextField()
     criterios_aceptacion = models.TextField()
     estado = models.CharField(max_length=20, choices=ESTADOS, default='POR_HACER')
@@ -58,7 +60,10 @@ class Epica(models.Model):
         on_delete=models.SET_NULL,
         null=True 
     )
-    tareas_asociadas = models.ManyToManyField('Tarea', blank=True)
+    tareas_asociadas = models.ManyToManyField(
+        'Tarea',
+          blank=True,
+          related_name="epicas_tareas")
     esfuerzo_estimado_total = models.IntegerField()
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
@@ -95,7 +100,8 @@ class Tarea(models.Model):
         ('ALTA', 'Alta'),
     ]
 
-    titulo = models.CharField(max_length=200)
+    titulo = models.CharField(max_length=200,
+                              verbose_name="Titulo de la Tarea",  help_text="Un titulo que describa la tarea.") #Mejoras para mejor legibilidad en el apartado admin.
     descripcion = models.TextField(
         null=False,
         blank=True
@@ -131,6 +137,7 @@ class Tarea(models.Model):
     )
     fecha_de_creacion = models.DateTimeField(auto_now=True)
     fecha_de_actualizacion = models.DateTimeField(auto_now_add=True)
+    fecha_de_finalizacion = models.DateTimeField(null=True,blank=True) #Campo de mejora, para agregar una fecha de finalizacion a la tarea
     dependencias = models.ManyToManyField(  #Relacion de muchos a muchos
         'self',
         symmetrical=False,  #La relación no es simétrica; permite dependencias unidireccionales
@@ -146,6 +153,10 @@ class Tarea(models.Model):
             models.CheckConstraint(check=Q(estado='POR_HACER') | Q(estado='EN_PROGRESO') | Q(estado='COMPLETADA'), name='estado_valido_tarea'),
             models.CheckConstraint(check=Q(prioridad='BAJA') | Q(prioridad='MEDIA') | Q(prioridad='ALTA'), name='prioridad_valido_tarea'),
             models.CheckConstraint(check=Q(esfuerzo_estimado__gte=0), name='esfuerzo_estimado_no_negativo'),
+            models.CheckConstraint(
+                check=Q(estado='COMPLETADA') | Q(fecha_de_finalizacion__isnull=True),
+                name='fecha_finalizacion_tarea'
+            ), #Constraint de mejora, si una tarea esta completada fecha de finalizacion puede tener un valor valido no null.
         ]
 
     def __str__(self):  #Funcion para darle formato cada vez que hagamos un print()
