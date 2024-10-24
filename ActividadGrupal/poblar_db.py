@@ -537,5 +537,35 @@ def populate():
         epica3.tareas_asociadas.add(tarea)
         print(f'Tarea {tarea.titulo} asociada al Epica {epica3.nombre}')
 
+    #Agrego las dependencias de las tareas
+    tarea_por_asignar = Tarea.objects.get(id=2)
+    tarea_para_asignar = Tarea.objects.get(id=1)
+    tarea_por_asignar.dependencias.add(tarea_para_asignar) #Asigno la tarea 1 como una dependencia de la 2
+
+    tarea_por_asignar = Tarea.objects.get(id=8)
+    tarea_para_asignar = Tarea.objects.get(id=3)
+    tarea_por_asignar.dependencias.add(tarea_para_asignar) #Asigno la tarea 3 como una dependencia de la 8
+    
+    tarea_por_asignar = Tarea.objects.get(id=10)
+    tarea_para_asignar = Tarea.objects.get(id=11)
+    tarea_por_asignar.dependencias.add(tarea_para_asignar) #Asigno la tarea 10 como una dependencia de la 11
+
+    tarea_por_asignar = Tarea.objects.get(id=13)
+    tarea_para_asignar = Tarea.objects.get(id=14)
+    tarea_por_asignar.dependencias.add(tarea_para_asignar) #Asigno la tarea 13 como una dependencia de la 14
+
+    tarea_por_asignar = Tarea.objects.get(id=20)
+    tarea_para_asignar = Tarea.objects.get(id=11)
+    tarea_por_asignar.dependencias.add(tarea_para_asignar) #Asigno la tarea 11 como una dependencia de la 20
+
+    tarea_por_asignar = Tarea.objects.get(id=28)
+    tarea_para_asignar = Tarea.objects.get(id=25)
+    tarea_por_asignar.dependencias.add(tarea_para_asignar) #Asigno la tarea 25 como una dependencia de la 28
+
+    #Agrego las dependencias de las epicas
+    epica_por_asignar = Epica.objects.get(id=3)
+    epica_para_asignar = Epica.objects.get(id=1)
+    epica_por_asignar.dependencias.add(epica_para_asignar) #Asigno la epica 1 como una dependencia de la 3
+
 if __name__ == '__main__':
     populate()
